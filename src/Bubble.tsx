@@ -159,6 +159,7 @@ export interface BubbleProps<TMessage extends IMessage> {
   renderTime?(timeProps: Time['props']): React.ReactNode
   renderTicks?(currentMessage: TMessage): React.ReactNode
   renderUsername?(): React.ReactNode
+  renderBubbleAction?(bubbleProps: BubbleProps<TMessage>): React.ReactNode
   renderQuickReplySend?(): React.ReactNode
   renderQuickReplies?(quickReplies: QuickReplies['props']): React.ReactNode
 }
@@ -181,6 +182,7 @@ export default class Bubble<
     renderUsername: null,
     renderTicks: null,
     renderTime: null,
+    renderBubbleAction: null,
     renderQuickReplies: null,
     onQuickReply: null,
     position: 'left',
@@ -215,6 +217,7 @@ export default class Bubble<
     renderUsername: PropTypes.func,
     renderTime: PropTypes.func,
     renderTicks: PropTypes.func,
+    renderBubbleAction: PropTypes.func,
     renderQuickReplies: PropTypes.func,
     onQuickReply: PropTypes.func,
     position: PropTypes.oneOf(['left', 'right']),
@@ -316,6 +319,15 @@ export default class Bubble<
         containerToPreviousStyle && containerToPreviousStyle[position],
       ]
     }
+    return null
+  }
+
+  renderBubbleAction() {
+    const { currentMessage, renderBubbleAction } = this.props
+    if (currentMessage && renderBubbleAction) {
+      return renderBubbleAction(this.props)
+    }
+
     return null
   }
 
@@ -535,6 +547,7 @@ export default class Bubble<
               </View>
             </View>
           </TouchableWithoutFeedback>
+          {this.renderBubbleAction()}
         </View>
         {this.renderQuickReplies()}
       </View>
