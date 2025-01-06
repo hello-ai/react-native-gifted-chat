@@ -20,6 +20,7 @@ import Time from './Time';
 import GiftedAvatar from './GiftedAvatar';
 import { IMessage, User, Reply, LeftRightStyle } from './Models';
 import QuickReplies from './QuickReplies';
+import { GiftedChatContext } from './GiftedChatContext';
 export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
     messages?: TMessage[];
     isTyping?: boolean;
@@ -112,10 +113,6 @@ export interface GiftedChatState<TMessage extends IMessage = IMessage> {
     messages?: TMessage[];
 }
 declare class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<GiftedChatProps<TMessage>, GiftedChatState> {
-    static childContextTypes: {
-        actionSheet: PropTypes.Requireable<(...args: any[]) => any>;
-        getLocale: PropTypes.Requireable<(...args: any[]) => any>;
-    };
     static defaultProps: {
         messages: never[];
         messagesContainerStyle: undefined;
@@ -264,7 +261,7 @@ declare class GiftedChat<TMessage extends IMessage = IMessage> extends React.Com
         messages: undefined;
     };
     constructor(props: GiftedChatProps<TMessage>);
-    getChildContext(): {
+    getContext(): {
         actionSheet: () => any;
         getLocale: () => string;
     };
@@ -335,4 +332,4 @@ declare class GiftedChat<TMessage extends IMessage = IMessage> extends React.Com
     render(): JSX.Element;
 }
 export * from './Models';
-export { GiftedChat, Actions, Avatar, Bubble, SystemMessage, MessageImage, MessageText, Composer, Day, InputToolbar, LoadEarlier, Message, MessageContainer, Send, Time, GiftedAvatar, utils, };
+export { GiftedChat, GiftedChatContext, Actions, Avatar, Bubble, SystemMessage, MessageImage, MessageText, Composer, Day, InputToolbar, LoadEarlier, Message, MessageContainer, Send, Time, GiftedAvatar, utils, };

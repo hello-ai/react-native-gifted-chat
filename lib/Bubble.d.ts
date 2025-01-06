@@ -45,9 +45,7 @@ export interface BubbleProps<TMessage extends IMessage> {
     renderQuickReplies?(quickReplies: QuickReplies['props']): React.ReactNode;
 }
 export default class Bubble<TMessage extends IMessage = IMessage> extends React.Component<BubbleProps<TMessage>> {
-    static contextTypes: {
-        actionSheet: PropTypes.Requireable<(...args: any[]) => any>;
-    };
+    static contextType: React.Context<import("./GiftedChatContext").IGiftedChatContext>;
     static defaultProps: {
         touchableProps: {};
         onLongPress: null;

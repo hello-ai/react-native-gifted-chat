@@ -15,6 +15,7 @@ import Color from './Color'
 import { StylePropType, isSameDay } from './utils'
 import { DATE_FORMAT } from './Constant'
 import { IMessage } from './Models'
+import { GiftedChatContext } from './GiftedChatContext'
 
 const styles = StyleSheet.create({
   container: {
@@ -45,9 +46,7 @@ export interface DayProps<TMessage extends IMessage> {
 export default class Day<
   TMessage extends IMessage = IMessage
 > extends PureComponent<DayProps<TMessage>> {
-  static contextTypes = {
-    getLocale: PropTypes.func,
-  }
+  static contextType = GiftedChatContext
 
   static defaultProps = {
     currentMessage: {

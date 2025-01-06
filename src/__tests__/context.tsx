@@ -2,25 +2,27 @@ import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import PropTypes from 'prop-types'
+import { GiftedChatContext } from '../GiftedChatContext'
 
 class Context extends React.Component {
   static propTypes = {
     children: PropTypes.element,
   }
 
-  static childContextTypes = {
-    actionSheet: PropTypes.func,
-    getLocale: PropTypes.func,
-    children: PropTypes.element,
-  }
-  getChildContext() {
+  getContext() {
     return {
-      actionSheet: () => {},
+      actionSheet: () => ({
+        showActionSheetWithOptions: () => {},
+      }),
       getLocale: () => 'en',
     }
   }
   render() {
-    return this.props.children
+    return (
+      <GiftedChatContext.Provider value={this.getContext()}>
+        {this.props.children}
+      </GiftedChatContext.Provider>
+    )
   }
 }
 

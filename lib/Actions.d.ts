@@ -23,9 +23,7 @@ export default class Actions extends React.Component<ActionsProps> {
         wrapperStyle: PropTypes.Requireable<number | boolean | object>;
         containerStyle: PropTypes.Requireable<number | boolean | object>;
     };
-    static contextTypes: {
-        actionSheet: PropTypes.Requireable<(...args: any[]) => any>;
-    };
+    static contextType: React.Context<import("./GiftedChatContext").IGiftedChatContext>;
     onActionsPress: () => void;
     renderIcon(): {} | null | undefined;
     render(): JSX.Element;
