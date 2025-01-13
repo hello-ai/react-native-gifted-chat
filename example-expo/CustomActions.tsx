@@ -13,6 +13,8 @@ import {
   pickImageAsync,
   takePictureAsync,
 } from './mediaUtils'
+// @ts-expect-error
+import { GiftedChatContext } from 'react-native-gifted-chat'
 
 export default class CustomActions extends React.Component {
   onActionsPress = () => {
@@ -90,9 +92,7 @@ const styles = StyleSheet.create({
   },
 })
 
-CustomActions.contextTypes = {
-  actionSheet: PropTypes.func,
-}
+CustomActions.contextType = GiftedChatContext
 
 CustomActions.defaultProps = {
   onSend: () => {},

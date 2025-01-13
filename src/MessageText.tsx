@@ -15,6 +15,7 @@ import ParsedText from 'react-native-parsed-text'
 import Communications from 'react-native-communications'
 import { LeftRightStyle, IMessage } from './Models'
 import { StylePropType } from './utils'
+import { GiftedChatContext } from './GiftedChatContext'
 
 const WWW_URL_PATTERN = /^www\./i
 
@@ -69,9 +70,7 @@ export interface MessageTextProps<TMessage extends IMessage> {
 export default class MessageText<
   TMessage extends IMessage = IMessage
 > extends React.Component<MessageTextProps<TMessage>> {
-  static contextTypes = {
-    actionSheet: PropTypes.func,
-  }
+  static contextType = GiftedChatContext
 
   static defaultProps = {
     position: 'left',
@@ -183,9 +182,21 @@ export default class MessageText<
           ]}
           parse={[
             ...this.props.parsePatterns!(linkStyle as TextStyle),
-            { type: 'url', style: linkStyle, onPress: this.onUrlPress },
-            { type: 'phone', style: linkStyle, onPress: this.onPhonePress },
-            { type: 'email', style: linkStyle, onPress: this.onEmailPress },
+            {
+              type: 'url',
+              style: linkStyle,
+              onPress: this.onUrlPress,
+            },
+            {
+              type: 'phone',
+              style: linkStyle,
+              onPress: this.onPhonePress,
+            },
+            {
+              type: 'email',
+              style: linkStyle,
+              onPress: this.onEmailPress,
+            },
           ]}
           childrenProps={{ ...this.props.textProps }}
         >

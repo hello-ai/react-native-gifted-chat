@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 import { LeftRightStyle, IMessage } from './Models';
 export interface TimeProps<TMessage extends IMessage> {
@@ -10,9 +10,7 @@ export interface TimeProps<TMessage extends IMessage> {
     timeFormat?: string;
 }
 export default class Time<TMessage extends IMessage = IMessage> extends Component<TimeProps<TMessage>> {
-    static contextTypes: {
-        getLocale: PropTypes.Requireable<(...args: any[]) => any>;
-    };
+    static contextType: React.Context<import("./GiftedChatContext").IGiftedChatContext>;
     static defaultProps: {
         position: string;
         currentMessage: {

@@ -7,6 +7,7 @@ import Color from './Color'
 import { TIME_FORMAT } from './Constant'
 import { LeftRightStyle, IMessage } from './Models'
 import { StylePropType } from './utils'
+import { GiftedChatContext } from './GiftedChatContext'
 
 const containerStyle = {
   marginLeft: 10,
@@ -52,9 +53,7 @@ export interface TimeProps<TMessage extends IMessage> {
 export default class Time<
   TMessage extends IMessage = IMessage
 > extends Component<TimeProps<TMessage>> {
-  static contextTypes = {
-    getLocale: PropTypes.func,
-  }
+  static contextType = GiftedChatContext
 
   static defaultProps = {
     position: 'left',

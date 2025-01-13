@@ -47,6 +47,7 @@ import {
 } from './Constant'
 import { IMessage, User, Reply, LeftRightStyle } from './Models'
 import QuickReplies from './QuickReplies'
+import { GiftedChatContext } from './GiftedChatContext'
 
 dayjs.extend(localizedFormat)
 
@@ -221,11 +222,6 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
   GiftedChatProps<TMessage>,
   GiftedChatState
 > {
-  static childContextTypes = {
-    actionSheet: PropTypes.func,
-    getLocale: PropTypes.func,
-  }
-
   static defaultProps = {
     messages: [],
     messagesContainerStyle: undefined,
@@ -418,7 +414,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     }
   }
 
-  getChildContext() {
+  getContext() {
     return {
       actionSheet:
         this.props.actionSheet || (() => this._actionSheetRef.getContext()),
@@ -441,9 +437,9 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
   componentDidUpdate(prevProps: GiftedChatProps<TMessage> = {}) {
     const { messages, text, inverted } = this.props
 
-    if (this.props !== prevProps) {
+    if (messages !== prevProps.messages) {
       this.setMessages(messages || [])
-    }
+    } 
 
     if (
       inverted === false &&
@@ -874,16 +870,18 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
       const Wrapper = wrapInSafeArea ? SafeAreaView : View
 
       return (
-        <Wrapper style={styles.safeArea}>
-          <ActionSheetProvider
-            ref={(component: any) => (this._actionSheetRef = component)}
-          >
-            <View style={styles.container} onLayout={this.onMainViewLayout}>
-              {this.renderMessages()}
-              {this.renderInputToolbar()}
-            </View>
-          </ActionSheetProvider>
-        </Wrapper>
+        <GiftedChatContext.Provider value={this.getContext()}>
+          <Wrapper style={styles.safeArea}>
+            <ActionSheetProvider
+              ref={(component: any) => (this._actionSheetRef = component)}
+            >
+              <View style={styles.container} onLayout={this.onMainViewLayout}>
+                {this.renderMessages()}
+                {this.renderInputToolbar()}
+              </View>
+            </ActionSheetProvider>
+          </Wrapper>
+        </GiftedChatContext.Provider>
       )
     }
     return (
@@ -907,6 +905,7 @@ export * from './Models'
 
 export {
   GiftedChat,
+  GiftedChatContext,
   Actions,
   Avatar,
   Bubble,

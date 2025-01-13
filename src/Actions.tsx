@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import Color from './Color'
 import { StylePropType } from './utils'
+import { GiftedChatContext } from './GiftedChatContext'
 
 export interface ActionsProps {
   options?: { [key: string]: any }
@@ -42,9 +43,7 @@ export default class Actions extends React.Component<ActionsProps> {
     containerStyle: StylePropType,
   }
 
-  static contextTypes = {
-    actionSheet: PropTypes.func,
-  }
+  static contextType = GiftedChatContext
 
   onActionsPress = () => {
     const { options } = this.props

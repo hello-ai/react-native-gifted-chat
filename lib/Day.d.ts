@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleProp, ViewStyle, TextStyle } from 'react-native';
 import { IMessage } from './Models';
 export interface DayProps<TMessage extends IMessage> {
@@ -13,9 +13,7 @@ export interface DayProps<TMessage extends IMessage> {
     inverted?: boolean;
 }
 export default class Day<TMessage extends IMessage = IMessage> extends PureComponent<DayProps<TMessage>> {
-    static contextTypes: {
-        getLocale: PropTypes.Requireable<(...args: any[]) => any>;
-    };
+    static contextType: React.Context<import("./GiftedChatContext").IGiftedChatContext>;
     static defaultProps: {
         currentMessage: {
             createdAt: null;

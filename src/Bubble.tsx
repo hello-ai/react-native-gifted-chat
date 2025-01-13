@@ -31,6 +31,7 @@ import {
   MessageVideoProps,
   MessageAudioProps,
 } from './Models'
+import { GiftedChatContext } from './GiftedChatContext'
 
 const styles = {
   left: StyleSheet.create({
@@ -167,10 +168,7 @@ export interface BubbleProps<TMessage extends IMessage> {
 export default class Bubble<
   TMessage extends IMessage = IMessage
 > extends React.Component<BubbleProps<TMessage>> {
-  static contextTypes = {
-    actionSheet: PropTypes.func,
-  }
-
+  static contextType = GiftedChatContext
   static defaultProps = {
     touchableProps: {},
     onLongPress: null,

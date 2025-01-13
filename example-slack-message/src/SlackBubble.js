@@ -17,6 +17,7 @@ import {
   MessageImage,
   Time,
   utils,
+  GiftedChatContext,
 } from 'react-native-gifted-chat'
 
 const { isSameUser, isSameDay } = utils
@@ -270,9 +271,7 @@ const styles = StyleSheet.create({
   },
 })
 
-Bubble.contextTypes = {
-  actionSheet: PropTypes.func,
-}
+Bubble.contextType = GiftedChatContext
 
 Bubble.defaultProps = {
   touchableProps: {},

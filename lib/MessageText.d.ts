@@ -14,9 +14,7 @@ export interface MessageTextProps<TMessage extends IMessage> {
     parsePatterns?(linkStyle: TextStyle): any;
 }
 export default class MessageText<TMessage extends IMessage = IMessage> extends React.Component<MessageTextProps<TMessage>> {
-    static contextTypes: {
-        actionSheet: PropTypes.Requireable<(...args: any[]) => any>;
-    };
+    static contextType: React.Context<import("./GiftedChatContext").IGiftedChatContext>;
     static defaultProps: {
         position: string;
         optionTitles: string[];
